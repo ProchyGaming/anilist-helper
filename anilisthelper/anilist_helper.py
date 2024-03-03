@@ -542,3 +542,4 @@ except:
   anilist_user_token = utils_read_json(os.path.join(data_path, 'config', 'config.json'))['anilist_user_token']
 anilist_id_cache_path = os.path.join(data_path, 'cache', 'anilist_cache.json')
 search_cache_path = os.path.join(data_path, 'cache', 'search_cache.json')
+config_path = os.path.join(data_path, 'config', 'config.json')
