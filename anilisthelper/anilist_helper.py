@@ -1,6 +1,7 @@
 from gevent import monkey
 monkey.patch_all()
-import requests, time, json, os, webbrowser, datetime
+import requests, time, json, os, webbrowser
+from datetime import datetime
 from flask import Flask, request, jsonify, send_file
 from gevent.pywsgi import WSGIServer
 
@@ -439,7 +440,7 @@ def generate_anime_entry(anime_info):
       day = start_date.get('day', 1)
       day = 1 if day is None else day
       try:
-        release_date = datetime.datetime(start_date['year'], start_date.get('month', 1), day).strftime('%Y-%m-%d')
+        release_date = datetime(start_date['year'], start_date.get('month', 1), day).strftime('%Y-%m-%d')
       except TypeError:
         release_date = None
       return release_date
@@ -449,7 +450,7 @@ def generate_anime_entry(anime_info):
       day = end_date.get('day', 1)
       day = 1 if day is None else day
       try:
-        end_date = datetime.datetime(end_date['year'], end_date.get('month', 1), day).strftime('%Y-%m-%d')
+        end_date = datetime(end_date['year'], end_date.get('month', 1), day).strftime('%Y-%m-%d')
       except TypeError:
         end_date = None
       return end_date     
