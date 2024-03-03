@@ -1,6 +1,6 @@
 from gevent import monkey
 monkey.patch_all()
-import requests, time, json, os, webbrowser
+import requests, time, json, os, webbrowser, copy
 from datetime import datetime
 from flask import Flask, request, jsonify, send_file
 from gevent.pywsgi import WSGIServer
@@ -90,6 +90,9 @@ def init_setup():
     
 def clear_cache():
   cache_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'cache')
+  config_dict = utils_read_json(config_path)
+  del config_dict['checked_date']
+  utils_save_json(config_path, config_dict)
   files = os.listdir(cache_path)
   for file in files:
     utils_save_json(os.path.join(cache_path, file), {})
@@ -530,6 +533,43 @@ def anilist_fetch_id(name):
 
     return []
 
+def check_status_in_cache():
+  og_cache = utils_read_json(anilist_id_cache_path)
+  cache = copy.deepcopy(og_cache)
+  config_dict = utils_read_json(config_path)
+  current_date = datetime.now().date()
+  try:
+    checked_date = datetime.strptime(config_dict['checked_date'], '%Y-%m-%d').date()
+  except:
+    config_dict['checked_date'] = current_date.strftime('%Y-%m-%d')
+    utils_save_json(config_path, config_dict)
+    checked_date = current_date
+  if current_date > checked_date:
+    for anime in og_cache:
+      try:
+        release_date = datetime.strptime(cache[anime]['release_date'], '%Y-%m-%d').date()
+      except:
+        release_date = None
+      try:
+        end_date = datetime.strptime(cache[anime]['end_date'], '%Y-%m-%d').date()
+      except:
+        end_date = None
+      if not release_date and not end_date:
+        continue
+      status = cache[anime]['status']
+      if status == 'RELEASING':
+        if end_date:
+          if current_date > end_date:
+            cache[anime]['status'] = 'FINISHED'
+      elif status == 'NOT_YET_RELEASED':
+        if release_date:
+          if current_date > release_date:
+            cache.update(get_anime_info(anime, True))
+    config_dict['checked_date'] = current_date.strftime('%Y-%m-%d')
+    utils_save_json(config_path, config_dict)
+    utils_save_json(anilist_id_cache_path, cache, True)
+  
+
 data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
 if not os.path.exists(data_path):
   init_setup()
@@ -543,3 +583,4 @@ except:
 anilist_id_cache_path = os.path.join(data_path, 'cache', 'anilist_cache.json')
 search_cache_path = os.path.join(data_path, 'cache', 'search_cache.json')
 config_path = os.path.join(data_path, 'config', 'config.json')
+check_status_in_cache()
