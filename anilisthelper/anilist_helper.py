@@ -355,7 +355,7 @@ def get_anime_entry_for_user(username, anilist_id):
     return get_anime_entry_for_user(username, anilist_id)
   return None
 
-def get_anime_info(anime_id):
+def get_anime_info(anime_id, force_update = False):
     anime_cache = utils_read_json(anilist_id_cache_path)
     anime_id = str(anime_id)
     if not anime_id:
@@ -368,7 +368,7 @@ def get_anime_info(anime_id):
       return anime_info
     # Check if anime_id exists in cache
     try:
-      if anime_id in anime_cache:
+      if anime_id in anime_cache and not force_update:
           print("Returning cached result for anime_id:", anime_id)
           return {'anime_id': anime_cache[anime_id]}
       else:
