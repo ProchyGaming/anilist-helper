@@ -370,7 +370,7 @@ def get_anime_info(anime_id):
     try:
       if anime_id in anime_cache:
           print("Returning cached result for anime_id:", anime_id)
-          return anime_cache[anime_id]
+          return {'anime_id': anime_cache[anime_id]}
       else:
         return fetch_from_anilist()
     except TypeError:
