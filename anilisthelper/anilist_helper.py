@@ -1,5 +1,3 @@
-from gevent import monkey
-monkey.patch_all()
 import requests, time, json, os, webbrowser, copy
 from datetime import datetime
 from flask import Flask, request, jsonify, send_file
