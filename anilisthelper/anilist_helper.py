@@ -471,6 +471,10 @@ def generate_anime_entry(anime_info):
       relations = None
     return relations
 
+  cache = utils_read_json(anilist_id_cache_path)
+  anime_id = str(anime_info['id'])
+  if anime_id in cache:
+    return cache[anime_id]
   anime_data = {}
   anime_data['total_eps'] = anime_info['episodes']
   anime_data['main_title'] = anime_info['title']['romaji']
@@ -489,6 +493,7 @@ def generate_anime_entry(anime_info):
     anime_data['upcoming_ep'] = None
   anime_data['format'] = anime_info['format']
   anime_data['related'] = getRelated()
+  utils_save_json(anilist_id_cache_path, {anime_id: anime_data}, False)
   return anime_data
 
 def get_id(name):
@@ -503,8 +508,6 @@ def get_id(name):
       if status == 'NOT_YET_RELEASED':
         anime_info = None
     json_out = {name: anime_info}
-    # Cache the fetched anime info
-    utils_save_json(search_cache_path, json_out, False)
     return anime_info
   
   # Check if anime_id exists in cache
