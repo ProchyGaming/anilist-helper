@@ -149,6 +149,9 @@ def make_graphql_request(query, variables=None):
         elif response.status_code == 500 or response.status_code == 400:
             print(f"Unknown error occured, retrying...")
             retries += 1
+        elif response.status_code == 404:
+            print(f"Anime not found")
+            return None
         else:
             print(f"Error {response.status_code}: {variables}")
             return {}
@@ -494,8 +497,11 @@ def get_id(name):
   def fetch_from_anilist():
     # Fetch anime info from Anilist API or any other source
     anime_info = anilist_fetch_id(name)
-    if not anime_info:
-      return None
+    if anime_info:
+      ani_dict = get_anime_info(anime_info)
+      status = ani_dict['status']
+      if status == 'NOT_YET_RELEASED':
+        anime_info = None
     json_out = {name: anime_info}
     # Cache the fetched anime info
     utils_save_json(search_cache_path, json_out, False)
@@ -528,7 +534,7 @@ def anilist_fetch_id(name):
         if anime_list:
             return anime_list
 
-    return []
+    return None
 
 def check_status_in_cache():
   og_cache = utils_read_json(anilist_id_cache_path)
