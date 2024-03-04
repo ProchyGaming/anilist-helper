@@ -96,7 +96,6 @@ def clear_cache():
   files = os.listdir(cache_path)
   for file in files:
     utils_save_json(os.path.join(cache_path, file), {})
-  pass
 
 def utils_save_json(file_path, data, overwrite = True):
   def update_json():
@@ -373,7 +372,7 @@ def get_anime_info(anime_id, force_update = False):
     try:
       if anime_id in anime_cache and not force_update:
           print("Returning cached result for anime_id:", anime_id)
-          return {'anime_id': anime_cache[anime_id]}
+          return {anime_id: anime_cache[anime_id]}
       else:
         return fetch_from_anilist()
     except TypeError:
