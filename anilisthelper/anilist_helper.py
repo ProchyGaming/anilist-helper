@@ -440,8 +440,8 @@ def anilist_fetch_anime_info(anilist_id):
 def generate_anime_entry(anime_info):
   def get_release_date(anime_data):
       start_date = anime_data.get('startDate', {})
-      day = start_date.get('day', 1)
-      day = 1 if day is None else day
+      day = start_date.get('day', 28)
+      day = 28 if day is None else day
       try:
         release_date = datetime(start_date['year'], start_date.get('month', 1), day).strftime('%Y-%m-%d')
       except TypeError:
@@ -450,8 +450,8 @@ def generate_anime_entry(anime_info):
     
   def get_end_date(anime_data):
       end_date = anime_data.get('endDate', {})
-      day = end_date.get('day', 1)
-      day = 1 if day is None else day
+      day = end_date.get('day', 28)
+      day = 28 if day is None else day
       try:
         end_date = datetime(end_date['year'], end_date.get('month', 1), day).strftime('%Y-%m-%d')
       except TypeError:
