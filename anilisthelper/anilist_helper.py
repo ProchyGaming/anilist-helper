@@ -566,7 +566,7 @@ def check_status_in_cache():
       if status == 'RELEASING':
         if end_date:
           if current_date > end_date:
-            cache[anime]['status'] = 'FINISHED'
+            cache.update(get_anime_info(anime, True))
       elif status == 'NOT_YET_RELEASED':
         if release_date:
           if current_date > release_date:
