@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 setup(
     name='anilist-helper',
-    version='1.01',
+    version='1.02',
     description='A Python library to fetch data from Anilist',
     author='Dominik Procházka',
     packages=find_packages(),
