@@ -62,9 +62,13 @@ def config_anilist():
       return user_token
 
   config_dict = {}
-  webbrowser.open('https://anilist.co/settings/developer', 0)
-  config_dict['anilist_client_token'] = get_input(gen_please('Anilist API Client ID',"Create a new client and copy its ID"))
-  config_dict['anilist_user_token'] = anilist_generate_api_key(config_dict['anilist_client_token'])
+  if anilist_env_key:
+    config_dict['anilist_client_token'] = ''
+    config_dict['anilist_user_token'] = anilist_env_key
+  else:
+    webbrowser.open('https://anilist.co/settings/developer', 0)
+    config_dict['anilist_client_token'] = get_input(gen_please('Anilist API Client ID',"Create a new client and copy its ID"))
+    config_dict['anilist_user_token'] = anilist_generate_api_key(config_dict['anilist_client_token'])
   utils_save_json(config ,config_dict)
 
 def init_setup():
@@ -82,7 +86,10 @@ def init_setup():
     if not does_exist:
       utils_save_json(file, {})
   if not utils_read_json(config):
-    print('Config not found! Please follow the on-screen instructions. Generating....')
+    if anilist_env_key:
+      print('Config not found! AniList environmental variable detected. Generating....')
+    else:
+      print('Config not found! Please follow the on-screen instructions. Generating....')
     config_anilist()
 
     
@@ -577,6 +584,7 @@ def check_status_in_cache():
   
 
 data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
+anilist_env_key = os.getenv('anilist_key')
 if not os.path.exists(data_path):
   init_setup()
 user_entries = {}
