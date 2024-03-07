@@ -480,7 +480,7 @@ def generate_anime_entry(anime_info):
 
   cache = utils_read_json(anilist_id_cache_path)
   anime_id = str(anime_info['id'])
-  if anime_id in cache:
+  if cache and anime_id in cache:
     return cache[anime_id]
   anime_data = {}
   anime_data['total_eps'] = anime_info['episodes']
@@ -511,7 +511,7 @@ def get_id(name):
     anime_info = anilist_fetch_id(name)
     if anime_info:
       ani_dict = get_anime_info(anime_info)
-      status = ani_dict['status']
+      status = ani_dict[str(anime_info)]['status']
       if status == 'NOT_YET_RELEASED':
         anime_info = None
     json_out = {name: anime_info}
@@ -519,7 +519,7 @@ def get_id(name):
   
   # Check if anime_id exists in cache
   try:
-    if name in search_cache:
+    if search_cache and name in search_cache:
         print("Returning cached result for search query:", name)
         return search_cache[name]
     else:
