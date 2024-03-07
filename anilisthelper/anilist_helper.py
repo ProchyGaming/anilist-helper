@@ -101,11 +101,13 @@ def init_setup():
   setup_cache()
   config_anilist()
 
-    
 def clear_cache():
   cache_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'cache')
   config_dict = utils_read_json(config_path)
-  del config_dict['checked_date']
+  try:
+    del config_dict['checked_date']
+  except:
+    pass
   utils_save_json(config_path, config_dict)
   files = os.listdir(cache_path)
   for file in files:
@@ -395,7 +397,6 @@ def get_anime_info(anime_id, force_update = False):
     except TypeError:
       return fetch_from_anilist()
 
-
 def anilist_fetch_anime_info(anilist_id):
     query = '''
     query ($mediaId: Int) {
@@ -557,6 +558,7 @@ def anilist_fetch_id(name):
 
 def check_status_in_cache():
   og_cache = utils_read_json(anilist_id_cache_path)
+  if not og_cache: return
   cache = copy.deepcopy(og_cache)
   config_dict = utils_read_json(config_path)
   current_date = datetime.now().date()
@@ -596,7 +598,7 @@ data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
 anilist_env_key = os.getenv('anilist_key')
 if not os.path.exists(data_path):
   if os.path.exists(os.path.join(data_path, 'cache')):
-    setup_anilist()
+    config_anilist()
   else:
     init_setup()
 user_entries = {}
