@@ -63,8 +63,28 @@ If you encounter any issues, feel free to open a new issue. If you have any new 
 
 ## Version History
 
-* 0.1
-    * Initial Release
+* [1.04](https://github.com/ProchyGaming/anilist-helper/releases/tag/v1.04)
+    * [anilist_helper: Break down the setup process](https://github.com/ProchyGaming/anilist-helper/commit/8c3fe5900f4396186b3a7315bf38e73e236e784e)
+    * [Remove LICENCE file when using pip show](https://github.com/ProchyGaming/anilist-helper/commit/9b42002dab525a1893c1f31b415c504c8e34c04b)
+    * Didn't forget to update the README finally lul xd
+* [1.03](https://github.com/ProchyGaming/anilist-helper/releases/tag/v1.03)
+    * [anilist_helper: Fix Type and Key errors](https://github.com/ProchyGaming/anilist-helper/commit/c8cd7323beea27f653c9e888a1acb47b70ced8b0)
+* [1.02](https://github.com/ProchyGaming/anilist-helper/releases/tag/v1.02)
+    * [anilist_helper: Fix-up typos](https://github.com/ProchyGaming/anilist-helper/commit/af08dc7c2757156dc51c3e37374c623baf76c281)
+    * [anilisthelper: Drop monkey patching](https://github.com/ProchyGaming/anilist-helper/commit/80fce02c35a6343f8ab19c896e41be0c11931974)
+    * [anilisthelper: Cache at the info generational level](https://github.com/ProchyGaming/anilist-helper/commit/7076e876461238ca9c4ef7ecf12c0c2fa3da8ce4)
+    * [generate_anime_entry(): Set placeholder day to 28th](https://github.com/ProchyGaming/anilist-helper/commit/b1b499e79fffe11b3f0007458e337f5ccbefa787)
+    * [check_status_in_cache(): Force check data for releasing anime too](https://github.com/ProchyGaming/anilist-helper/commit/990900964995ff1fa30eb753dcdccbe0df5d7377)
+    * [anilist_helper: Add support for env variable](https://github.com/ProchyGaming/anilist-helper/commit/ac64f38b8563f199776d931e621af290637f476f)
+    * [anilist-helper: Add config_anilist() function](https://github.com/ProchyGaming/anilist-helper/commit/5d65e7ddee604379f70ab2e3291f3fe88607f8fc)
+* [1.01](https://github.com/ProchyGaming/anilist-helper/releases/tag/v1.01)
+    * [Import only datetime, not the whole library](https://github.com/ProchyGaming/anilist-helper/commit/7c7d5674644a50e891cf9f69bb71546b7fbcbf5b)
+    * [Add a config_path variable](https://github.com/ProchyGaming/anilist-helper/commit/1d88e70891c785714bf355e3f526c59a7e9e21d1)
+    * [get_anime_info(): Return proper dict](https://github.com/ProchyGaming/anilist-helper/commit/4b93547684030ffea06b53e234ab41cde352d446)
+    * [get_anime_info(): Introduce a force update flag](https://github.com/ProchyGaming/anilist-helper/commit/348359239372b8a6d7e87034ec57c52b2b75d575)
+    * [Introduce a check_status_in_cache() function](https://github.com/ProchyGaming/anilist-helper/commit/e6a1eb54298dc4a5838d45d8ed2d3bcb4effdf65)
+* [1.0](https://github.com/ProchyGaming/anilist-helper/releases/tag/v1.0)
+    * [Initial Release](https://github.com/ProchyGaming/anilist-helper/commit/5c838f646c66de83365f6a0e897d317e89d67e4f)
 
 ## Acknowledgments
 
