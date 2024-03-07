@@ -390,7 +390,6 @@ def get_anime_info(anime_id, force_update = False):
     # Check if anime_id exists in cache
     try:
       if anime_id in anime_cache and not force_update:
-          print("Returning cached result for anime_id:", anime_id)
           return {anime_id: anime_cache[anime_id]}
       else:
         return fetch_from_anilist()
@@ -530,7 +529,6 @@ def get_id(name):
   # Check if anime_id exists in cache
   try:
     if search_cache and name in search_cache:
-        print("Returning cached result for search query:", name)
         return search_cache[name]
     else:
         return fetch_from_anilist()
