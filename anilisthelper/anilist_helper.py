@@ -37,7 +37,7 @@ def setup_webserver():
 
     return start_webserver, http_server
 
-def config_anilist():
+def setup_anilist():
   setup_function, _ = setup_webserver()  # Setup the server function here
   script_path = os.path.dirname(os.path.abspath(__file__))
   config = os.path.join(script_path, 'data', 'config', 'config.json')
@@ -71,26 +71,35 @@ def config_anilist():
     config_dict['anilist_user_token'] = anilist_generate_api_key(config_dict['anilist_client_token'])
   utils_save_json(config ,config_dict)
 
-def init_setup():
+def create_data_files(file_path):
+  folder_path = os.path.dirname(file_path)
+  if not os.path.exists(folder_path):
+    os.makedirs(folder_path)
+  does_exist = os.path.exists(file_path)
+  if not does_exist:
+    utils_save_json(file_path, {})  
 
+def setup_cache():
   script_path = os.path.dirname(os.path.abspath(__file__))
   anilist_cache = os.path.join(script_path, 'data', 'cache', 'anilist_cache.json')
   search_cache = os.path.join(script_path, 'data', 'cache', 'search_cache.json')
-  config = os.path.join(script_path, 'data', 'config', 'config.json')
-  script_files = [anilist_cache, search_cache, config]
+  script_files = [anilist_cache, search_cache]
   for file in script_files:
-    folder_path = os.path.dirname(file)
-    if not os.path.exists(folder_path):
-      os.makedirs(folder_path)
-    does_exist = os.path.exists(file)
-    if not does_exist:
-      utils_save_json(file, {})
-  if not utils_read_json(config):
-    if anilist_env_key:
-      print('Config not found! AniList environmental variable detected. Generating....')
-    else:
-      print('Config not found! Please follow the on-screen instructions. Generating....')
-    config_anilist()
+    create_data_files(file)
+
+def config_anilist():
+  script_path = os.path.dirname(os.path.abspath(__file__))
+  config = os.path.join(script_path, 'data', 'config', 'config.json')
+  create_data_files(config)
+  if anilist_env_key:
+    print('Config not found! AniList environmental variable detected. Generating....')
+  else:
+    print('Config not found! Please follow the on-screen instructions. Generating....')
+  setup_anilist()
+
+def init_setup():
+  setup_cache()
+  config_anilist()
 
     
 def clear_cache():
@@ -586,12 +595,14 @@ def check_status_in_cache():
 data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
 anilist_env_key = os.getenv('anilist_key')
 if not os.path.exists(data_path):
-  init_setup()
+  if os.path.exists(os.path.join(data_path, 'cache')):
+    setup_anilist()
+  else:
+    init_setup()
 user_entries = {}
 try:
   anilist_user_token = utils_read_json(os.path.join(data_path, 'config', 'config.json'))['anilist_user_token']
 except:
-  print('Config not found! Please follow the on-screen instructions. Generating....')
   config_anilist()
   anilist_user_token = utils_read_json(os.path.join(data_path, 'config', 'config.json'))['anilist_user_token']
 anilist_id_cache_path = os.path.join(data_path, 'cache', 'anilist_cache.json')
