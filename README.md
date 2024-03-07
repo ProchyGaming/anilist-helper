@@ -63,6 +63,8 @@ If you encounter any issues, feel free to open a new issue. If you have any new 
 
 ## Version History
 
+* [1.041](https://github.com/ProchyGaming/anilist-helper/releases/tag/v1.041)
+    * [anilist_helper: Fix more oversights](https://github.com/ProchyGaming/anilist-helper/commit/b0ea061c16c5c147faf651593dd412b5bb92d2bb)
 * [1.04](https://github.com/ProchyGaming/anilist-helper/releases/tag/v1.04)
     * [anilist_helper: Break down the setup process](https://github.com/ProchyGaming/anilist-helper/commit/8c3fe5900f4396186b3a7315bf38e73e236e784e)
     * [Remove LICENCE file when using pip show](https://github.com/ProchyGaming/anilist-helper/commit/9b42002dab525a1893c1f31b415c504c8e34c04b)
