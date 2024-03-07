@@ -64,3 +64,9 @@ jobs:
         path: dist/
     - name: Publish package
       uses: pypa/gh-action-pypi-publish@release/v1
+    - name: Repository Dispatch
+      uses: peter-evans/repository-dispatch@v3
+      with:
+        token: ${{ secrets.PAT }}
+        repository: ProchyGaming/subsplease-scraper
+        event-type: new_release
