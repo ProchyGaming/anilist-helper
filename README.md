@@ -63,6 +63,8 @@ If you encounter any issues, feel free to open a new issue. If you have any new 
 
 ## Version History
 
+* [1.042](https://github.com/ProchyGaming/anilist-helper/releases/tag/v1.042)
+    * [anilist_helper: Fix more oversights](https://github.com/ProchyGaming/anilist-helper/commit/acc5b453d8324ef181c549df3bc550d5c46b0b26)
 * [1.041](https://github.com/ProchyGaming/anilist-helper/releases/tag/v1.041)
     * [anilist_helper: Fix more oversights](https://github.com/ProchyGaming/anilist-helper/commit/b0ea061c16c5c147faf651593dd412b5bb92d2bb)
 * [1.04](https://github.com/ProchyGaming/anilist-helper/releases/tag/v1.04)
